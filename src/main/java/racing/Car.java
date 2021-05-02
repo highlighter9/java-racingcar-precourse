@@ -2,17 +2,12 @@ package racing;
 
 public class Car {
 
-	private CarName carName;
-	private CarDistance carDistance;
+	private final CarName carName;
+	private final CarDistance carDistance;
 
 	public Car(String name) {
 		this.carName = new CarName(name);
 		this.carDistance = new CarDistance();
-	}
-
-	public Car(String name, int distance) {
-		this.carName = new CarName(name);
-		this.carDistance = new CarDistance(distance);
 	}
 
 	public String getName() {
