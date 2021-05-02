@@ -6,18 +6,22 @@ public class CarName {
 	private final String name;
 
 	public CarName(String name) {
+		valid(name);
 		this.name = name;
+
 	}
 
-	public boolean valid() {
+	public String getName() {
+		return this.name;
+	}
+
+	private void valid(String name) {
 		if (name == null || name.trim().length() < NAME_MIN_LIMIT) {
-			System.out.printf("자동차 이름은 %d자 이상이어야 합니다.\n", NAME_MIN_LIMIT);
-			return false;
+			throw new IllegalArgumentException("자동차 이름은" + NAME_MIN_LIMIT + "자 이상이어야 합니다");
 		}
 		if (name.trim().length() > NAME_MAX_LIMIT) {
-			System.out.printf("자동차 이름은 %d자를 초과할 수 없습니다.\n", NAME_MAX_LIMIT);
-			return false;
+			throw new IllegalArgumentException("자동차 이름은" + NAME_MAX_LIMIT + "자를 초과할 수 없습니다.");
 		}
-		return true;
 	}
+
 }
