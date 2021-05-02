@@ -3,6 +3,8 @@ package racing;
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class CarTest {
     @Test
@@ -19,5 +21,14 @@ public class CarTest {
 		assertThatThrownBy(() -> {
 			Car car = new Car(name);
 		}).isInstanceOf(IllegalArgumentException.class);
+	}
+
+	@ParameterizedTest
+	@CsvSource(value = {"5:1", "9:1", "4:0", "0:0"}, delimiter = ':')
+	void 자동차_이동(int count, int distance) {
+		String name = "test";
+		Car car = new Car(name);
+		car.move(count);
+		assertThat(car.getDistance()).isEqualTo(distance);
 	}
 }

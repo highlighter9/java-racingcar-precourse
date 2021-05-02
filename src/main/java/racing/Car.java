@@ -22,4 +22,9 @@ public class Car {
 	public int getDistance() {
 		return this.carDistance.getDistance();
 	}
+
+	public void move(int count) {
+		int distance = MoveStatus.getMoveStatus(count).distance;
+		carDistance.add(distance);
+	}
 }
