@@ -59,7 +59,17 @@ public class CarRace {
 	private void driveCars() {
 		for (Car car : cars) {
 			car.move(CounterUtil.randomCount());
+			reportCar(car);
 		}
+		System.out.println();
+	}
+
+	private void reportCar(Car car) {
+		StringBuilder distanceStr = new StringBuilder();
+		for (int i = 0; i < car.getDistance(); i++) {
+			distanceStr.append("-");
+		}
+		System.out.println(car.getName() + ":" + distanceStr);
 	}
 
 	public List<String> getWinner() {
@@ -69,6 +79,8 @@ public class CarRace {
 		for (Car car : cars) {
 			addWinner(winners, maxDistance, car);
 		}
+
+		System.out.println(winners + "가 최종 우승했습니다.");
 		return winners;
 	}
 
