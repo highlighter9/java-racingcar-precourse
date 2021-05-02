@@ -2,15 +2,13 @@ package racing;
 
 import static org.assertj.core.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 public class CarNameTest {
-    @Test
-    void 자동차_이름_유효성() {
-        assertThat(CarName.valid("brown")).isTrue();
-        assertThat(CarName.valid("r")).isTrue();
-        assertThat(CarName.valid("")).isFalse();
-        assertThat(CarName.valid(null)).isFalse();
-        assertThat(CarName.valid("purple")).isFalse();
+    @ParameterizedTest
+    @CsvSource(value = {"brown:true","r:true","'  ':false","null:false","purple:false"}, delimiter = ':', nullValues={"null"})
+    void 자동차_이름_유효성 (String name, boolean result) {
+        assertThat(new CarName(name).valid()).isEqualTo(result);
     }
 }
