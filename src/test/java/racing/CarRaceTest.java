@@ -5,59 +5,62 @@ import static org.assertj.core.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CarRaceTest {
+	List<String> carNames;
+	List<Car> cars;
+	int raceCount;
+
+	List<Car> setCars(List<String> carNames) {
+		List<Car> cars = new ArrayList<>();
+		for (String carName : carNames) {
+			cars.add(new Car(carName));
+		}
+		return cars;
+	}
+
+	@BeforeEach
+	void setUp() {
+		raceCount = 10;
+		carNames = Arrays.asList(new String[] {"test1", "test2", "test3", "test4", "test5"});
+		cars = setCars(carNames);
+	}
+
+
+
 	@Test
-	void 경주_참가_자동차_목록_생성() {
-		List<String> carNames = Arrays.asList(new String[] {"test1", "test2", "test3", "test4", "test5"});
-		int raceCount = 10;
-		CarRace carRace = new CarRace(carNames, raceCount);
-		List<String> cars = carRace.getCars()
-			.stream().map(Car::getName)
-			.collect(Collectors.toList());
-		System.out.println(cars);
-		assertThat(cars).isEqualTo(carNames);
+	void 자동차경주_초기생성() {
+		CarRace carRace = new CarRace(cars, raceCount);
+		assertThat(carRace.getCars()).isEqualTo(cars);
 		assertThat(carRace.getRaceCount()).isEqualTo(raceCount);
 	}
 
 	@Test
-	void 경주_참가_자동차_목록_중복체크() {
-		List<String> carNames = Arrays.asList(new String[] {"test1", "test2", "test1", "test2", "test3"});
+	void 자동차경주_최소_참가_자동차수_미달() {
+		carNames = Arrays.asList(new String[] {});
+		cars = setCars(carNames);
 		int raceCount = 10;
 
-		assertThatThrownBy(() -> {
-			CarRace carRace = new CarRace(carNames, raceCount);
-		}).isInstanceOf(IllegalArgumentException.class);
+		assertThatThrownBy(() ->
+			new CarRace(cars, raceCount)
+		).isInstanceOf(IllegalArgumentException.class);
 	}
 
 	@Test
-	void 경주_최소_참가_자동차수_미달() {
-		List<String> carNames = Arrays.asList(new String[] {});
-		int raceCount = 10;
-
-		assertThatThrownBy(() -> {
-			CarRace carRace = new CarRace(carNames, raceCount);
-		}).isInstanceOf(IllegalArgumentException.class);
-	}
-
-	@Test
-	void 경주_최소_시도_횟수_미달() {
-		List<String> carNames = Arrays.asList(new String[] {"test1", "test2", "test1", "test2", "test3"});
+	void 자동차경주_최소_시도_횟수_미달() {
 		int raceCount = 0;
 
-		assertThatThrownBy(() -> {
-			CarRace carRace = new CarRace(carNames, raceCount);
-		}).isInstanceOf(IllegalArgumentException.class);
+		assertThatThrownBy(() ->
+			new CarRace(cars, raceCount)
+		).isInstanceOf(IllegalArgumentException.class);
 	}
 
 	@Test
 	void 경주() {
-		List<String> carNames = Arrays.asList(new String[] {"test1", "test2", "test3", "test4", "test5"});
-		int raceCount = 10;
-		CarRace carRace = new CarRace(carNames, raceCount);
+		CarRace carRace = new CarRace(cars, raceCount);
 		int maxDistance = 0;
 		carRace.race();
 		List<String> winners = new ArrayList<>();

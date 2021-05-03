@@ -1,5 +1,7 @@
 package racing;
 
+import java.util.Collections;
+
 public class CarDistance {
 	private int distance;
 
@@ -17,5 +19,10 @@ public class CarDistance {
 
 	public void add(int distance) {
 		this.distance += distance;
+	}
+
+	@Override
+	public String toString() {
+		return String.join("", Collections.nCopies(distance, "-"));
 	}
 }

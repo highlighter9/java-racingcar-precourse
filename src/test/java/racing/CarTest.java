@@ -24,7 +24,7 @@ public class CarTest {
 	}
 
 	@ParameterizedTest
-	@CsvSource(value = {"5:1", "9:1", "4:0", "0:0"}, delimiter = ':')
+	@CsvSource(value = {"5:1", "9:1", "3:0", "0:0"}, delimiter = ':')
 	void 자동차_이동(int count, int distance) {
 		String name = "test";
 		Car car = new Car(name);

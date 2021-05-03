@@ -18,8 +18,12 @@ public class Car {
 		return this.carDistance.getDistance();
 	}
 
+	public String getDistanceStr() {
+		return this.carDistance.toString();
+	}
+
 	public void move(int count) {
-		int distance = MoveStatus.getMoveStatus(count).distance;
+		int distance = MoveStatus.getMoveStatus(count).getDistance();
 		carDistance.add(distance);
 	}
 }
